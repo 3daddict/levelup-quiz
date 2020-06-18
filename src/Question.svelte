@@ -1,7 +1,8 @@
 <script>
+    import { score } from './store.js';
+
     export let question;
     export let nextQuestion;
-    export let addToScore;
 
     let isCorrect;
     let isAnswered = false;
@@ -30,7 +31,7 @@
         isAnswered = true;
         isCorrect = correct;
         if(correct) {
-            addToScore();
+            score.update(val => val + 1);
         }
     }
 
@@ -48,7 +49,7 @@
 {/if}
 
 {#each allAnswers as answer}
-     <button on:click={() => checkQuestion(answer.correct)}>
+     <button class="answer" on:click={() => checkQuestion(answer.correct)}>
         {@html answer.answer}
     </button>
 {/each}
@@ -66,5 +67,9 @@
 
     h5.isCorrect {
         color: green;
+    }
+
+    .answer {
+        display: block;
     }
 </style>
